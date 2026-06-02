@@ -70,6 +70,11 @@ def unfollow_user(username):
     print(f"Unfollowing {username}...")
     api_request("DELETE", url)
 
+def follow_user(username):
+    url = f"https://api.github.com/user/following/{username}"
+    print(f"Following {username}...")
+    api_request("PUT", url)
+
 def main():
     followers_file = "followers.json"
     
@@ -94,16 +99,25 @@ def main():
     print(f"Total previous followers: {len(previous_followers)}")
     
     unfollowed_us = previous_followers - current_followers
+    new_followers = current_followers - previous_followers
+    
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     if unfollowed_us:
         print(f"Found {len(unfollowed_us)} users who unfollowed us: {', '.join(unfollowed_us)}")
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open("traitors.txt", "a") as tf:
             for traitor in unfollowed_us:
                 unfollow_user(traitor)
                 tf.write(f"[{now}] {traitor}\n")
     else:
         print("No one unfollowed us. Everyone is loyal!")
+        
+    if new_followers:
+        print(f"Found {len(new_followers)} new followers: {', '.join(new_followers)}")
+        for friend in new_followers:
+            follow_user(friend)
+    else:
+        print("No new followers.")
         
     # Always save the updated followers list
     with open(followers_file, "w") as f:
