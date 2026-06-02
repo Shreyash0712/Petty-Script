@@ -2,6 +2,7 @@ import os
 import json
 import urllib.request
 import urllib.error
+from datetime import datetime
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
 if not TOKEN:
@@ -96,8 +97,11 @@ def main():
     
     if unfollowed_us:
         print(f"Found {len(unfollowed_us)} users who unfollowed us: {', '.join(unfollowed_us)}")
-        for traitor in unfollowed_us:
-            unfollow_user(traitor)
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open("traitors.txt", "a") as tf:
+            for traitor in unfollowed_us:
+                unfollow_user(traitor)
+                tf.write(f"[{now}] {traitor}\n")
     else:
         print("No one unfollowed us. Everyone is loyal!")
         

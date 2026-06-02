@@ -1,4 +1,4 @@
-# Petty GitHub Script 🕵️‍♂️
+# Petty GitHub Script
 
 Tired of people who follow you on GitHub just to get a follow back, and then immediately unfollow you? This automated script keeps track of your followers and automatically unfollows anyone who decides to hit that unfollow button on you.
 
