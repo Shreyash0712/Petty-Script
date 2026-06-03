@@ -3,7 +3,7 @@
 Tired of people who follow you on GitHub just to get a follow back, and then immediately unfollow you? This automated script keeps track of your followers and automatically unfollows anyone who decides to hit that unfollow button on you. It also rewards loyalty by automatically following back any new followers you get!
 
 ## How it works
-1. Runs automatically every day at midnight UTC via GitHub Actions.
+1. Runs automatically every 8 hours via GitHub Actions.
 2. Checks your current followers against a saved list (`followers.json`).
 3. If someone from the saved list is no longer following you, it automatically unfollows them.
 4. If someone new starts following you, it automatically follows them back.
