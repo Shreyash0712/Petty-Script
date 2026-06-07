@@ -33,4 +33,5 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add followers.json
           if [ -f traitors.txt ]; then git add traitors.txt; fi
+          if [ -f non_followers.txt ]; then git add non_followers.txt; fi
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update followers list" && git push)

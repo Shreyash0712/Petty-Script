@@ -65,6 +65,39 @@ def get_all_followers():
         
     return followers
 
+def get_all_following():
+    following = set()
+    page = 1
+    while True:
+        url = f"https://api.github.com/user/following?per_page=100&page={page}"
+        print(f"Fetching following page {page}...")
+        try:
+            req = urllib.request.Request(url, headers=HEADERS, method="GET")
+            with urllib.request.urlopen(req) as response:
+                body = response.read()
+                data = json.loads(body)
+        except urllib.error.HTTPError as e:
+            print(f"HTTP Error {e.code}: {e.reason} for {url}")
+            if e.code == 401:
+                print("Unauthorized: Please check if your USER_PAT is valid and has the correct permissions.")
+                exit(1)
+            break
+        except Exception as e:
+            print(f"Error: {e} for {url}")
+            break
+            
+        if not data:
+            break
+            
+        for user in data:
+            following.add(user["login"])
+            
+        if len(data) < 100:
+            break
+        page += 1
+        
+    return following
+
 def unfollow_user(username):
     url = f"https://api.github.com/user/following/{username}"
     print(f"Unfollowing {username}...")
@@ -79,8 +112,16 @@ def main():
     followers_file = "followers.json"
     
     current_followers = get_all_followers()
+    current_following = get_all_following()
     
     print(f"Total current followers: {len(current_followers)}")
+    print(f"Total current following: {len(current_following)}")
+    
+    non_followers = current_following - current_followers
+    print(f"Found {len(non_followers)} users who don't follow back.")
+    with open("non_followers.txt", "w") as f:
+        for user in sorted(list(non_followers)):
+            f.write(f"{user}\n")
     
     if not os.path.exists(followers_file):
         print(f"{followers_file} not found. This seems to be the first run.")
