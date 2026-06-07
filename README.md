@@ -8,6 +8,7 @@ Tired of people who follow you on GitHub just to get a follow back, and then imm
 3. If someone from the saved list is no longer following you, it automatically unfollows them.
 4. If someone new starts following you, it automatically follows them back.
 5. Updates the saved list with your current followers.
+6. Keeps track of the unfollowed users in `traitors.txt` and users who don't follow back in `non_followers.txt` (Just to keep track - because of course there are going to be people who you don't expect a follow back from right?)
 
 ## Setup Instructions
 
