@@ -117,17 +117,17 @@ def main():
     print(f"Total current followers: {len(current_followers)}")
     print(f"Total current following: {len(current_following)}")
     
-    non_followers = current_following - current_followers
-    print(f"Found {len(non_followers)} users who don't follow back.")
-    with open("non_followers.txt", "w") as f:
-        for user in sorted(list(non_followers)):
-            f.write(f"{user}\n")
-    
     if not os.path.exists(followers_file):
         print(f"{followers_file} not found. This seems to be the first run.")
         print("Saving current followers and exiting.")
         with open(followers_file, "w") as f:
             json.dump(sorted(list(current_followers)), f, indent=2)
+            
+        non_followers = current_following - current_followers
+        print(f"Found {len(non_followers)} users who don't follow back.")
+        with open("non_followers.txt", "w") as f:
+            for user in sorted(list(non_followers)):
+                f.write(f"{user}\n")
         return
         
     with open(followers_file, "r") as f:
@@ -141,6 +141,24 @@ def main():
     
     unfollowed_us = previous_followers - current_followers
     new_followers = current_followers - previous_followers
+    
+    known_traitors = set()
+    if os.path.exists("traitors.txt"):
+        with open("traitors.txt", "r") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    parts = line.split("] ", 1)
+                    if len(parts) == 2:
+                        known_traitors.add(parts[1])
+                        
+    all_traitors = known_traitors.union(unfollowed_us)
+    non_followers = (current_following - current_followers) - all_traitors
+    
+    print(f"Found {len(non_followers)} users who don't follow back.")
+    with open("non_followers.txt", "w") as f:
+        for user in sorted(list(non_followers)):
+            f.write(f"{user}\n")
     
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
