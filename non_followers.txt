@@ -1,5 +1,6 @@
 DataTalksClub
 Kalpu-24
+Resolutefemi
 ShubhanshuPandey05
 Yajat-Ramawat
 bendalejatin
@@ -7,4 +8,3 @@ hesreallyhim
 karpathy
 shravanngoswamii
 torvalds
-yakew7
