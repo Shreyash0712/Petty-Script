@@ -6,5 +6,6 @@ Yajat-Ramawat
 bendalejatin
 hesreallyhim
 karpathy
+kyle-vbc
 shravanngoswamii
 torvalds
