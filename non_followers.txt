@@ -1,11 +1,11 @@
 DataTalksClub
+HoodballGH
 Kalpu-24
 Yajat-Ramawat
 bendalejatin
 fewocious
 hesreallyhim
 karpathy
-kyle-vbc
 reckedcoder
 shravanngoswamii
 torvalds
