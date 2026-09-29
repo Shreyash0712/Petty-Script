@@ -6,6 +6,7 @@ bendalejatin
 fewocious
 hesreallyhim
 karpathy
+konstantinkop
 reckedcoder
 shravanngoswamii
 torvalds
